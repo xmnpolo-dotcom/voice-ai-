@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: voice-ai-api
+    runtime: docker
+    plan: starter
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /health
+    disk:
+      name: voice-ai-data
+      mountPath: /var/data
+      sizeGB: 20
+    envVars:
+      - key: ELEVENLABS_API_KEY
+        sync: false
+      - key: VOICE_AI_MAX_UPLOAD_BYTES
+        value: "3221225472"
