@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#090d16">
-  <meta name="description" content="Voice AI — prepara doblajes de vídeo con inteligencia artificial.">
+  <meta name="description" content="Voice AI — doblaje automático de vídeos con inteligencia artificial.">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="stylesheet" href="styles.css">
   <title>Voice AI</title>
@@ -19,7 +19,7 @@
     <section class="hero">
       <p class="eyebrow">TU ESTUDIO DE DOBLAJE CON IA</p>
       <h1>Tu vídeo.<br><span>Otra voz.</span></h1>
-      <p class="muted">Prepara tu doblaje en español con una sincronización natural.</p>
+      <p class="muted">Dobla automáticamente vídeos al español conservando las voces detectadas y la sincronización.</p>
     </section>
 
     <section class="panel">
@@ -27,46 +27,45 @@
       <label class="upload" for="videoFile">
         <span class="upload-icon">＋</span>
         <strong>Seleccionar vídeo</strong>
-        <small>MP4 · MOV · WebM</small>
-        <input id="videoFile" type="file" accept="video/mp4,video/quicktime,video/webm">
+        <small>MP4 · MOV · WebM · MKV</small>
+        <input id="videoFile" type="file" accept="video/mp4,video/quicktime,video/webm,video/x-matroska">
       </label>
       <video id="preview" controls playsinline hidden></video>
-      <p id="fileInfo" class="muted tiny">*El límite debe validarse también en el servidor.</p>
+      <p id="fileInfo" class="muted tiny">*El tamaño máximo depende del servidor de procesamiento.</p>
     </section>
 
     <section class="panel">
       <h2>2. Tipo de doblaje</h2>
       <div class="choice-grid">
-        <label class="choice selected"><input type="radio" name="mode" value="automatic" checked><b>Automático</b><small>Detectar y doblar las voces del vídeo.</small></label>
-        <label class="choice"><input type="radio" name="mode" value="script"><b>Con guion</b><small>Usar el texto que tú proporciones.</small></label>
+        <label class="choice selected"><input type="radio" name="mode" value="automatic" checked><b>Automático</b><small>Detectar, traducir y doblar las voces del vídeo.</small></label>
+        <label class="choice"><input type="radio" name="mode" value="script" disabled><b>Con guion · Próximamente</b><small>Doblar usando un texto que tú proporciones.</small></label>
       </div>
-      <textarea id="script" placeholder="Escribe o pega aquí el guion que quieres doblar…" hidden></textarea>
+      <textarea id="script" placeholder="El modo con guion estará disponible próximamente…" hidden></textarea>
     </section>
 
     <section class="panel">
       <h2>3. Traducción al español</h2>
-      <label class="check"><input id="translateAudio" type="checkbox" checked> Traducir automáticamente las voces al español si el vídeo está en otro idioma</label>
-      <label class="check"><input id="translateScreenText" type="checkbox"> Detectar y traducir textos que aparecen dentro del vídeo</label>
-      <p class="hint">La traducción en pantalla puede requerir borrar o cubrir el texto original y reconstruir el fondo. Los resultados dependen de la calidad de imagen y del movimiento.</p>
+      <label class="check"><input id="translateAudio" type="checkbox" checked disabled> Traducir automáticamente las voces al español</label>
+      <label class="check"><input id="translateScreenText" type="checkbox" disabled> Detectar y traducir textos que aparecen dentro del vídeo · Próximamente</label>
+      <p class="hint">El doblaje de audio está conectado al motor automático. La traducción de rótulos y textos incrustados en la imagen todavía está en desarrollo.</p>
     </section>
 
     <section class="panel">
-      <h2>4. Configura la voz</h2>
-      <div class="field"><label for="language">Idioma de salida</label><select id="language"><option value="es">Español</option><option value="en">Inglés</option><option value="pt">Portugués</option><option value="fr">Francés</option><option value="de">Alemán</option></select></div>
-      <div class="field"><label for="voice">Voz IA</label><select id="voice"><option value="es-neutral-01">Español · Natural</option><option value="es-warm-01">Español · Cálida</option><option value="es-deep-01">Español · Grave</option></select></div>
-      <p class="hint">Se utilizará una sola voz para todo el vídeo. Las voces son opciones de ejemplo hasta conectar un proveedor de voz.</p>
+      <h2>4. Voces</h2>
+      <div class="field"><label for="voice">Tratamiento de las voces</label><select id="voice"><option value="original">Conservar las voces detectadas</option></select></div>
+      <p class="hint">El motor intenta mantener la identidad de cada hablante al doblarlo al español. La selección de una única voz personalizada aún no está conectada.</p>
     </section>
 
     <section class="panel">
       <h2>5. Exportación</h2>
-      <div class="field"><label for="resolution">Resolución</label><select id="resolution"><option value="original">Mantener original</option><option value="1080p">1080p</option><option value="4k" selected>4K</option></select></div>
-      <label class="check"><input id="keepAudio" type="checkbox" checked> Conservar música y efectos originales (requiere separación de audio)</label>
-      <div class="sync"><span>Sincronización</span><strong>Natural</strong></div>
+      <div class="field"><label for="resolution">Resolución</label><select id="resolution"><option value="original" selected>Mantener resolución original (hasta 4K)</option></select></div>
+      <p class="hint">Se conserva la pista de vídeo original. Si el vídeo de origen está en 4K, el resultado mantiene esa resolución; no se inventa detalle en vídeos de menor calidad.</p>
+      <div class="sync"><span>Sincronización</span><strong>Automática</strong></div>
     </section>
 
-    <button id="processBtn" class="primary">Preparar doblaje <span>→</span></button>
-    <p id="status" class="status" role="status">El procesamiento real requiere conectar los servicios de IA.</p>
-    <footer>VOICE AI · PROTOTIPO EN DESARROLLO</footer>
+    <button id="processBtn" class="primary">Doblar vídeo al español <span>→</span></button>
+    <p id="status" class="status" role="status">El servicio de procesamiento en la nube debe estar activado para empezar.</p>
+    <footer>VOICE AI · BETA</footer>
   </main>
   <script src="app.js"></script>
 </body>
