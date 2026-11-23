@@ -39,6 +39,9 @@ processBtn.addEventListener("click",async()=>{
     data.append("voice",document.querySelector("#voice").value);
     data.append("resolution",document.querySelector("#resolution").value);
     data.append("keep_audio",document.querySelector("#keepAudio").checked?"true":"false");
+    data.append("translate_audio",document.querySelector("#translateAudio").checked?"true":"false");
+    data.append("target_language","es");
+    data.append("translate_screen_text",document.querySelector("#translateScreenText").checked?"true":"false");
     const response=await fetch("/api/jobs",{method:"POST",body:data});
     if(!response.ok)throw new Error("El servidor no está disponible o rechazó el archivo.");
     const job=await response.json();
