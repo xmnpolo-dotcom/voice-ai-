@@ -1,0 +1,11 @@
+{
+  "appId": "com.voicestudio.voiceai",
+  "appName": "Voice AI",
+  "webDir": "public",
+  "server": {
+    "androidScheme": "https"
+  },
+  "android": {
+    "allowMixedContent": false
+  }
+}
