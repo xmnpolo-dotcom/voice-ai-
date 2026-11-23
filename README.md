@@ -1,39 +1,34 @@
-# Voice AI — starter para doblaje de vídeo
+# Voice AI
 
-Aplicación web móvil instalable (PWA) para preparar proyectos de doblaje con IA.
+Android + web client for video dubbing.
 
-## Estado real
-Esta entrega es un **prototipo funcional de interfaz**, no un servicio de doblaje terminado. Permite cargar y previsualizar vídeos, elegir modo, idioma, voz y resolución, y enviar un trabajo al backend. El backend actual recibe el archivo y crea un registro temporal en memoria; todavía no ejecuta transcripción, separación de audio, síntesis de voz ni renderizado final.
+## Current engine
 
-## Incluye
-- Interfaz en español, adaptable a móvil.
-- Carga de MP4, MOV y WebM y previsualización local.
-- Modos de doblaje automático y con guion aportado por el usuario.
-- Selección de voz, idioma y resolución (original, 1080p, 4K).
-- Opción para conservar música y efectos (pendiente de integración real).
-- PWA instalable.
-- API FastAPI básica para crear y consultar trabajos.
+The backend now connects to the ElevenLabs Dubbing Projects API (dubbing_v2):
+- Uploads a source video.
+- Queues an automatic Spanish dub.
+- Checks the provider's project/language status.
+- Downloads the generated lossless audio and muxes it back onto the original video with FFmpeg, keeping the original video stream and resolution.
 
-## Ejecutar la interfaz
-Abre `public/index.html` en un servidor estático. Por ejemplo, desde la carpeta del proyecto:
-```bash
-python -m http.server 8080 --directory public
-```
-Visita `http://localhost:8080`.
+The provider supports audio/video source files up to 3 GiB. Dubbing is a paid API operation and the provider charges for the first target language when a project is created. Check your ElevenLabs plan and usage before processing long videos.
 
-## Ejecutar el backend
-Requiere Python 3.11+:
-```bash
-cd backend
-python -m venv .venv
-# Windows: .venv\\Scripts\\activate
-# macOS/Linux: source .venv/bin/activate
-pip install -r requirements.txt
-uvicorn main:app --reload
-```
-La API queda en `http://127.0.0.1:8000`; documentación en `/docs`.
+Current limitations:
+- The API key and a deployed backend are required. Never put the API key in the Android app or GitHub.
+- The server uses an in-memory job registry; a server restart loses job tracking.
+- The automatic dubbing provider preserves/replicates detected speakers; the single-voice selector in the UI is not yet wired to a fixed voice.
+- Custom-script dubbing and OCR/replacement of text embedded in the video are not implemented yet.
+- The provider returns dubbed audio; FFmpeg muxes it onto the original video. Output keeps the source video resolution; this does not upscale to 4K.
 
-## Para convertirlo en un doblador real
-Hay que integrar proveedores de transcripción y TTS, separación de voz/música, almacenamiento persistente, cola de trabajos y FFmpeg. Los trabajos largos (hasta una hora) deben procesarse en un servidor, no solo en el móvil. Las claves de API deben guardarse en el servidor, nunca en JavaScript del navegador.
+## Deploy backend
 
-La exportación 4K no recupera detalle que no exista en el vídeo original.
+1. Create a Render account and connect this GitHub repository.
+2. Deploy using the repository's `render.yaml` Blueprint.
+3. Set `ELEVENLABS_API_KEY` as a secret environment variable in Render. Do not commit it.
+4. Wait for the service health check at `/health`.
+5. Set the deployed API base URL in the Android/web client and rebuild the APK.
+
+Required service: FFmpeg is installed in the Docker image. A persistent disk is configured for source/output media. The Render Starter service and persistent disk may incur charges, separate from ElevenLabs usage.
+
+## Android
+
+The GitHub Actions workflow builds a debug APK on each push to `main`.
