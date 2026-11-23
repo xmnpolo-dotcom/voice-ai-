@@ -44,14 +44,21 @@
     </section>
 
     <section class="panel">
-      <h2>3. Configura la voz</h2>
+      <h2>3. Traducción al español</h2>
+      <label class="check"><input id="translateAudio" type="checkbox" checked> Traducir automáticamente las voces al español si el vídeo está en otro idioma</label>
+      <label class="check"><input id="translateScreenText" type="checkbox"> Detectar y traducir textos que aparecen dentro del vídeo</label>
+      <p class="hint">La traducción en pantalla puede requerir borrar o cubrir el texto original y reconstruir el fondo. Los resultados dependen de la calidad de imagen y del movimiento.</p>
+    </section>
+
+    <section class="panel">
+      <h2>4. Configura la voz</h2>
       <div class="field"><label for="language">Idioma de salida</label><select id="language"><option value="es">Español</option><option value="en">Inglés</option><option value="pt">Portugués</option><option value="fr">Francés</option><option value="de">Alemán</option></select></div>
       <div class="field"><label for="voice">Voz IA</label><select id="voice"><option value="es-neutral-01">Español · Natural</option><option value="es-warm-01">Español · Cálida</option><option value="es-deep-01">Español · Grave</option></select></div>
       <p class="hint">Se utilizará una sola voz para todo el vídeo. Las voces son opciones de ejemplo hasta conectar un proveedor de voz.</p>
     </section>
 
     <section class="panel">
-      <h2>4. Exportación</h2>
+      <h2>5. Exportación</h2>
       <div class="field"><label for="resolution">Resolución</label><select id="resolution"><option value="original">Mantener original</option><option value="1080p">1080p</option><option value="4k" selected>4K</option></select></div>
       <label class="check"><input id="keepAudio" type="checkbox" checked> Conservar música y efectos originales (requiere separación de audio)</label>
       <div class="sync"><span>Sincronización</span><strong>Natural</strong></div>
