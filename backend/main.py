@@ -164,7 +164,7 @@ async def get_job(job_id: str):
                     cmd = [
                         "ffmpeg", "-y", "-i", job["source_path"], "-i", str(audio_path),
                         "-map", "0:v:0", "-map", "1:a:0", "-c:v", "copy",
-                        "-c:a", "aac", "-b:a", "192k", "-shortest", "-movflags", "+faststart",
+                        "-c:a", "aac", "-b:a", "192k", "-movflags", "+faststart",
                         str(video_path),
                     ]
                     result = subprocess.run(cmd, capture_output=True, text=True, timeout=7200)
