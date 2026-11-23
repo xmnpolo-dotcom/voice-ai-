@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   build:
@@ -46,3 +46,11 @@ jobs:
           path: android/app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
           retention-days: 30
+
+      - name: Publish APK as GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: voice-ai-build-${{ github.run_number }}
+          name: Voice AI Android - build ${{ github.run_number }}
+          generate_release_notes: true
+          files: android/app/build/outputs/apk/debug/app-debug.apk
