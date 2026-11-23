@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#090d16">
+  <meta name="description" content="Voice AI — prepara doblajes de vídeo con inteligencia artificial.">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="styles.css">
+  <title>Voice AI</title>
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div class="brand"><span class="brand-mark">V</span><div><strong>VOICE <i>AI</i></strong><small>VIDEO DUBBING STUDIO</small></div></div>
+      <span class="pill">BETA</span>
+    </header>
+
+    <section class="hero">
+      <p class="eyebrow">TU ESTUDIO DE DOBLAJE CON IA</p>
+      <h1>Tu vídeo.<br><span>Otra voz.</span></h1>
+      <p class="muted">Prepara tu doblaje en español con una sincronización natural.</p>
+    </section>
+
+    <section class="panel">
+      <div class="section-head"><h2>1. Añade tu vídeo</h2><span class="muted">Hasta 60 min*</span></div>
+      <label class="upload" for="videoFile">
+        <span class="upload-icon">＋</span>
+        <strong>Seleccionar vídeo</strong>
+        <small>MP4 · MOV · WebM</small>
+        <input id="videoFile" type="file" accept="video/mp4,video/quicktime,video/webm">
+      </label>
+      <video id="preview" controls playsinline hidden></video>
+      <p id="fileInfo" class="muted tiny">*El límite debe validarse también en el servidor.</p>
+    </section>
+
+    <section class="panel">
+      <h2>2. Tipo de doblaje</h2>
+      <div class="choice-grid">
+        <label class="choice selected"><input type="radio" name="mode" value="automatic" checked><b>Automático</b><small>Detectar y doblar las voces del vídeo.</small></label>
+        <label class="choice"><input type="radio" name="mode" value="script"><b>Con guion</b><small>Usar el texto que tú proporciones.</small></label>
+      </div>
+      <textarea id="script" placeholder="Escribe o pega aquí el guion que quieres doblar…" hidden></textarea>
+    </section>
+
+    <section class="panel">
+      <h2>3. Configura la voz</h2>
+      <div class="field"><label for="language">Idioma de salida</label><select id="language"><option value="es">Español</option><option value="en">Inglés</option><option value="pt">Portugués</option><option value="fr">Francés</option><option value="de">Alemán</option></select></div>
+      <div class="field"><label for="voice">Voz IA</label><select id="voice"><option value="es-neutral-01">Español · Natural</option><option value="es-warm-01">Español · Cálida</option><option value="es-deep-01">Español · Grave</option></select></div>
+      <p class="hint">Se utilizará una sola voz para todo el vídeo. Las voces son opciones de ejemplo hasta conectar un proveedor de voz.</p>
+    </section>
+
+    <section class="panel">
+      <h2>4. Exportación</h2>
+      <div class="field"><label for="resolution">Resolución</label><select id="resolution"><option value="original">Mantener original</option><option value="1080p">1080p</option><option value="4k" selected>4K</option></select></div>
+      <label class="check"><input id="keepAudio" type="checkbox" checked> Conservar música y efectos originales (requiere separación de audio)</label>
+      <div class="sync"><span>Sincronización</span><strong>Natural</strong></div>
+    </section>
+
+    <button id="processBtn" class="primary">Preparar doblaje <span>→</span></button>
+    <p id="status" class="status" role="status">El procesamiento real requiere conectar los servicios de IA.</p>
+    <footer>VOICE AI · PROTOTIPO EN DESARROLLO</footer>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
